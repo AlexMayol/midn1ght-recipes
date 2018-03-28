@@ -1,0 +1,20 @@
+{
+  "name": "midn1ght-recipes",
+  "version": "1.0.0",
+  "description": "I love food. You love food. Find the best recipes here.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexMayol/midn1ght-recipes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexMayol/midn1ght-recipes/issues"
+  },
+  "homepage": "https://github.com/AlexMayol/midn1ght-recipes#readme"
+}
