@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css">
     <noscript><!--no JS alternative--></noscript>
-    <title>Midn1ght Recipes | Tasty food!</title>
+    <title>Resultados de la búsqueda</title>
   </head>
   <body>
     <header id="header">
@@ -23,14 +23,14 @@
         <input @click="searchPost()" type="submit" value="Buscar">
         <p v-if="isFound == false">No hemos encontrado nada con ese texto, vuelve a intentarlo</p>
     </div>
-    <main id="kitchen">
+    <main id="results">
       <button :disabled="viewList.isActive" @click="toggleList()"><i class="fas fa-bars"></i></button>
       <button :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>    
       <div class="gal" :class="{ list: viewList.isActive, grid: viewGrid.isActive }"> 
     
-          <p v-for="post in blogData"  v-if="post.labels != null">1 {{post.labels}}</p>
+          <p v-for="post in queryResult"  v-if="post.labels != null">1 {{post.labels}}</p>
   
-        <div v-for="post in blogData" v-once>
+        <div v-for="post in queryResult" v-once>
           <div class="post">
             <a :href=" 'recipe.html?post='+post.id" target="_blank" rel="noopener">                
               <span class="fecha">{{post.updated}} - <img :src="'http:'+post.author.image.url+'.jpg'" alt="Autor del post">{{post.author.displayName}}</span>

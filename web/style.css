@@ -14,13 +14,29 @@ body{
     padding: 1rem;
     background-color: white;
 }
-.list{
+.img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.gal{
+    transition: all 0.3s ease-in-out;
+    background-color: bisque;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+}
+.list{
+    flex-direction: column;
+}
+.grid{
+    flex-direction: row;
+}
+.item{
+  border: 1px solid darkgrey;
+  border-radius: 6px;
+  margin: .3rem;
+  display: inline-block;
 }
 .post{
-    background-color: azure;
     border:1px solid black;
     border-radius: 6px;
     margin: .5rem;   
@@ -32,6 +48,14 @@ body{
     -moz-box-shadow: 2px 3px 13px -1px rgba(0,0,0,0.62);
     box-shadow: 2px 3px 13px -1px rgba(0,0,0,0.62);
     transform: translate(0px, -5px);
+}
+button:disabled{
+    background-color: green;
+    color:white;
+    font-weight: bold;
+    border:0;
+    padding: .2rem .4rem;
+    cursor: not-allowed;
 }
 a{
     text-decoration: none;

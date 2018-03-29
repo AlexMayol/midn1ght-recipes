@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="The best recipes you can cook at midnight.">
+    <meta name="subject" content="Just a simple exercise for fun">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <noscript><!--no JS alternative--></noscript>
+    <title>Midn1ght Recipes | Tasty food!</title>
+  </head>
+  <body>
+    <header>
+      <h1>Midnight</h1>
+      <h2>Recipes</h2>
+    </header>
+    <main id="recipe">      
+      hola, {{message}}
+      <div>
+        <p v-html="recipeData.content" v-once></p>
+      </div>
+    </main>
+    <footer>      
+      Footer
+    </footer>
+    <script src="code.js"></script>
+  </body>
+</html>
