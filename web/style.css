@@ -12,11 +12,9 @@ body{
     border-radius: 5px;
 }
 .header{
-    height:50vh;
     width: 100%;
-    background-image: url("./../img/header.jpg");
     background-attachment: fixed;
-    background-position: center;
+    background-position: bottom;
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
@@ -25,6 +23,26 @@ body{
     justify-content: center;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+}
+.home{
+    background-image: url("./../img/home.jpg");
+    height:50vh;
+}
+.comidas{
+    background-image: url("./../img/comidas.jpg");
+    height:30vh;
+}
+.bebidas{
+    background-image: url("./../img/bebidas.jpg");
+    height:30vh;
+}
+.postres{
+    background-image: url("./../img/postres.jpg");
+    height:30vh;
+}
+.otros{
+    background-image: url("./../img/otros.jpg");
+    height:30vh;    
 }
 .header p{
     margin: 0;
@@ -110,7 +128,6 @@ body{
     flex: 1;
     width: auto;
     min-width: 200px;
-    min-height: 300px;
     height: auto;
     margin: 0.2rem;
     max-width: 400px;
@@ -123,6 +140,7 @@ body{
 }
 .post h2{
     padding: 0 .5rem;
+    margin: .5rem 0;
 }
 .post p{
     margin: .3rem;
@@ -141,7 +159,7 @@ body{
 
 }
 .list .post{
-    max-width: 100%;
+    max-width: 100%;    
 }
 .list .post a{
     display: flex;
@@ -184,7 +202,9 @@ a:not([rel="noopener"]){
 
 
 
-
+.cat{
+    margin:0.3rem;
+}
 
 
   /*----Epic loader---*/
@@ -231,3 +251,4 @@ a:not([rel="noopener"]){
       transform: rotate(360deg);
     }
   }
+  [v-cloak] > * { display:none }

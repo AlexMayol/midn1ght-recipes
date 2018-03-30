@@ -14,15 +14,14 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css">
     <noscript><!--no JS alternative--></noscript>
-    <title>Midn1ght Recipes | Tasty food!</title>
+    <title>Postres | Midn1ght Recipes</title>
   </head>
   <body>
     <header id="header">
-      <div class="header home">
-        <h1 class="sr-only">Midnight Recipes</h1>
-        <p aria-hidden="true" class="mst">Midnight</p>
-        <p aria-hidden="true" class="lora">and his</p>
-        <p aria-hidden="true" class="mst">Recipes</p>
+      <div class="header postres">
+        <h1 class="sr-only">Postres</h1>
+        <p aria-hidden="true" class="mst">Postres</p>
+        <p aria-hidden="true" class="lora">maravillosos</p>
       </div>
       <!--<mr-header></mr-header>-->
     </header>
@@ -34,7 +33,7 @@
         <input @click="searchPost()" type="submit" value="Buscar">
         <p v-if="isFound == false">No hemos encontrado nada con ese texto, vuelve a intentarlo</p>
     </div>
-    <main id="kitchen">
+    <main id="postres">
       <button :disabled="viewList.isActive" @click="toggleList()"><i class="fas fa-bars"></i></button>
       <button :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>   
       <div v-if="blogData == null" class="spinner">
@@ -44,7 +43,7 @@
         </div>
      </div>  
       <div v-else class="gal" :class="{ 'list': viewList.isActive, 'grid':   viewGrid.isActive }">       
-        <div v-for="post in blogData" v-once>
+        <div v-for="post in postres" v-once>
           <div class="post">
             <a :href=" 'recipe.html?post='+post.id" target="_blank" rel="noopener">                     
               <div v-if="post.imgPreview != null"><img class="img" :src="post.imgPreview" alt=""></div>

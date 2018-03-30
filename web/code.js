@@ -158,6 +158,183 @@ if(document.getElementById('kitchen')){
         }
     })
 }
+if(document.getElementById('comidas')){
+    new Vue({
+        el:'#comidas',
+        data:{   
+            blogData:null,
+            comidas:[],
+            viewList:{
+                isActive:false
+            },
+            viewGrid:{
+                isActive:true
+            }
+        },
+        mounted(){
+            this.getPosts()
+        },
+        methods:{
+            getPosts(){
+                let self = this;
+                axios.get('https://www.googleapis.com/blogger/v3/blogs/4068847985698899770/posts?key=AIzaSyCXEfThpBpeJtVSW208CvRmGBwAyuutbHM')
+                .then(function (response) {
+                self.blogData = response.data.items;
+                for(let x = 0; x < self.blogData.length;x++){                
+                    if(self.blogData[x].labels != null && self.blogData[x].labels.indexOf("Comidas") != -1){
+                     self.comidas.push(self.blogData[x]);                    
+                    }                    
+                }
+                //self.getPreview();
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
+            },
+            getPreview(){
+                let el = document.createElement( 'html' );
+                for (let i = 0; i < this.comidas.length; i++) { 
+                   
+                    el.innerHTML = this.comidas[i].content;
+                    let img = el.getElementsByClassName('preview')[0];
+                    if(img != null){
+                        this.postres[i].imgPreview = img.getAttribute('src');
+                    }                      
+                }
+            },
+            parseDate(date){                
+                let fecha = new Date(date).toLocaleDateString('es-ES', options);                
+                return fecha;
+            },
+            toggleGrid(){
+                this.viewGrid.isActive = !this.viewGrid.isActive;
+                this.viewList.isActive = !this.viewList.isActive;
+            },
+            toggleList(){
+                this.viewList.isActive = !this.viewList.isActive;
+                this.viewGrid.isActive = !this.viewGrid.isActive;
+            }
+        }
+    })
+}
+if(document.getElementById('bebidas')){
+    new Vue({
+        el:'#bebidas',
+        data:{   
+            blogData:null,
+            bebidas:[],
+            viewList:{
+                isActive:false
+            },
+            viewGrid:{
+                isActive:true
+            }
+        },
+        mounted(){
+            this.getPosts()
+        },
+        methods:{
+            getPosts(){
+                var self = this;
+                axios.get('https://www.googleapis.com/blogger/v3/blogs/4068847985698899770/posts?key=AIzaSyCXEfThpBpeJtVSW208CvRmGBwAyuutbHM')
+                .then(function (response) {
+                self.blogData = response.data.items;
+                for(let x = 0; x < self.blogData.length;x++){
+                    if(self.blogData[x].labels != null && self.blogData[x].labels.indexOf("Bebidas")  != -1){
+                     self.bebidas.push(self.blogData[x]);                    
+                    }                    
+                }
+                //self.getPreview();
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
+            },
+            getPreview(){
+                let el = document.createElement( 'html' );
+                for (let i = 0; i < this.bebidas.length; i++) { 
+                   
+                    el.innerHTML = this.bebidas[i].content;
+                    let img = el.getElementsByClassName('preview')[0];
+                    if(img != null){
+                        this.postres[i].imgPreview = img.getAttribute('src');
+                    }                      
+                }
+            },
+            parseDate(date){                
+                let fecha = new Date(date).toLocaleDateString('es-ES', options);                
+                return fecha;
+            },
+            toggleGrid(){
+                this.viewGrid.isActive = !this.viewGrid.isActive;
+                this.viewList.isActive = !this.viewList.isActive;
+            },
+            toggleList(){
+                this.viewList.isActive = !this.viewList.isActive;
+                this.viewGrid.isActive = !this.viewGrid.isActive;
+            }
+        }
+    })
+}
+if(document.getElementById('postres')){
+    new Vue({
+        el:'#postres',
+        data:{   
+            blogData:null,
+            postres:[],
+            viewList:{
+                isActive:false
+            },
+            viewGrid:{
+                isActive:true
+            }
+        },
+        mounted(){
+            this.getPosts()
+        },
+        methods:{
+            getPosts(){
+                var self = this;
+                axios.get('https://www.googleapis.com/blogger/v3/blogs/4068847985698899770/posts?key=AIzaSyCXEfThpBpeJtVSW208CvRmGBwAyuutbHM')
+                .then(function (response) {
+                self.blogData = response.data.items;
+                for(let x = 0; x < self.blogData.length;x++){
+                    if(self.blogData[x].labels != null && self.blogData[x].labels.indexOf("Postres")  != -1){
+                     self.postres.push(self.blogData[x]);                    
+                    }                    
+                }
+                //self.getPreview();
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
+            },
+            getPreview(){
+                let el = document.createElement( 'html' );
+                for (let i = 0; i < this.postres.length; i++) { 
+                   
+                    el.innerHTML = this.postres[i].content;
+                    let img = el.getElementsByClassName('preview')[0];
+                    if(img != null){
+                        this.postres[i].imgPreview = img.getAttribute('src');
+                    }                      
+                }
+            },
+            parseDate(date){                
+                let fecha = new Date(date).toLocaleDateString('es-ES', options);                
+                return fecha;
+            },
+            toggleGrid(){
+                this.viewGrid.isActive = !this.viewGrid.isActive;
+                this.viewList.isActive = !this.viewList.isActive;
+            },
+            toggleList(){
+                this.viewList.isActive = !this.viewList.isActive;
+                this.viewGrid.isActive = !this.viewGrid.isActive;
+            }
+        }
+    })
+}
 if(document.getElementById('recipe')){
     new Vue({
         el:'#recipe',
