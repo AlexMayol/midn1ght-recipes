@@ -1,13 +1,24 @@
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 Vue.component('mr-footer', {
     template: `<div>
-                <p>You can find me on <a href="https://twitter.com/alex_midn1ght" target="_blank" rel="noopener">Twitter</a></p>
+                <p>You can find me on <a href="" target="_blank" rel="noopener">Twitter</a></p>
             </div>`
 })
 Vue.component('mr-header', {
-    template: ` <h1>Midnight <br>recipes</h1>`
+    template: ` `
+})
+Vue.component('mr-menu', {
+    template: `<ul>
+                <li><a href="index.html" target="_blank" rel="noopener">Inicio</a></li>
+                <li><a href="comidas.html" target="_blank" rel="noopener">Comidas</a></li>
+                <li><a href="bebidas.html" target="_blank" rel="noopener">Bebidas</a></li>
+                <li><a href="postres.html" target="_blank" rel="noopener">Postres</a></li>
+                <li><a href="about.html" target="_blank" rel="noopener">Contacto</a></li>
+                </ul>`
 })
 if(document.getElementById('footer')){new Vue({ el: '#footer' })}
 if(document.getElementById('header')){new Vue({ el: '#header' })}
+if(document.getElementById('menu')){new Vue({ el: '#menu' })}
 if(document.getElementById('search-bar')){
     new Vue({ 
         el: '#search-bar',
@@ -129,11 +140,12 @@ if(document.getElementById('kitchen')){
                     let img = el.getElementsByClassName('preview')[0];
                     if(img != null){
                         this.blogData[i].imgPreview = img.getAttribute('src');
-                    }                         
+                    }                      
                 }
-                console.log(this.blogData)  
-               
-                
+            },
+            parseDate(date){                
+                let fecha = new Date(date).toLocaleDateString('es-ES', options);                
+                return fecha;
             },
             toggleGrid(){
                 this.viewGrid.isActive = !this.viewGrid.isActive;

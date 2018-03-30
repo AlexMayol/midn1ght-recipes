@@ -7,6 +7,8 @@
     <meta name="description" content="The best recipes you can cook at midnight.">
     <meta name="subject" content="Just a simple exercise for fun">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -16,8 +18,17 @@
   </head>
   <body>
     <header id="header">
-      <mr-header></mr-header>
+      <div class="header">
+        <h1 class="sr-only">Midnight Recipes</h1>
+        <p aria-hidden="true" class="mst">Midnight</p>
+        <p aria-hidden="true" class="lora">and his</p>
+        <p aria-hidden="true" class="mst">Recipes</p>
+      </div>
+      <!--<mr-header></mr-header>-->
     </header>
+    <nav id="menu">      
+      <mr-menu></mr-menu>
+    </nav>
     <div id="search-bar">
         <input placeholder="Buscar en todos los posts" v-model="texto" type="text">
         <input @click="searchPost()" type="submit" value="Buscar">
@@ -25,24 +36,29 @@
     </div>
     <main id="kitchen">
       <button :disabled="viewList.isActive" @click="toggleList()"><i class="fas fa-bars"></i></button>
-      <button :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>    
-      <div class="gal" :class="{ list: viewList.isActive, grid: viewGrid.isActive }"> 
-    
-          <p v-for="post in blogData"  v-if="post.labels != null">1 {{post.labels}}</p>
-  
+      <button :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>   
+      <div v-if="blogData == null" class="spinner">
+        <div class="half-circle-spinner">
+          <div class="circle circle-1"></div>
+          <div class="circle circle-2"></div>
+        </div>
+     </div>  
+      <div v-else class="gal" :class="{ 'list': viewList.isActive, 'grid':   viewGrid.isActive }">       
         <div v-for="post in blogData" v-once>
           <div class="post">
-            <a :href=" 'recipe.html?post='+post.id" target="_blank" rel="noopener">                
-              <span class="fecha">{{post.updated}} - <img :src="'http:'+post.author.image.url+'.jpg'" alt="Autor del post">{{post.author.displayName}}</span>
-              <div><img class="img" :src="post.imgPreview" alt=""></div>
+            <a :href=" 'recipe.html?post='+post.id" target="_blank" rel="noopener">                     
+              <div v-if="post.imgPreview != null"><img class="img" :src="post.imgPreview" alt=""></div>
               <h2>{{post.title}}</h2>
-            </a> 
+              <p class="fecha">{{parseDate(post.updated)}}</p>            
+              <p class="author"><img :src="'http:'+post.author.image.url+'.jpg'" alt="Autor del post"> {{post.author.displayName}}</p>
+              <div v-if="post.labels != null">En: <span>{{post.labels}}</span></div><div v-else>Sin categoría</span></div>              
+            </a>             
           </div>
         </div>
       </div>
     </main>
     <footer id="footer">      
-      <mr-footer>h</mr-footer>
+      <mr-footer></mr-footer>
     </footer>
     <script src="code.js"></script>
   </body>
