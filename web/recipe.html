@@ -18,15 +18,27 @@
       <h1>Midnight</h1>
       <h2>Recipes</h2>
     </header>
+    <nav id="menu">      
+        <mr-menu></mr-menu>
+      </nav>
+      <div id="search-bar">
+          <div class="search-wrap">
+            <input v-on:keyup.enter="searchPost()" placeholder="Buscar en todos los posts" v-model="texto" type="text">
+            <button @click="searchPost()" type="submit" value="Buscar">
+                <i class="fa fa-search"></i>
+            </button>   
+          </div>       
+          <div class="alert" v-if="isFound == false" ><span>No hemos encontrado nada con ese texto, vuelve a intentarlo</span></div>
+        </div>
     <main id="recipe">      
       hola, {{message}}
       <div>
         <div v-html="recipeData.content" v-once></div>
       </div>
     </main>
-    <footer>      
-      Footer
-    </footer>
+    <footer id="footer">      
+        <mr-footer></mr-footer>
+      </footer>
     <script src="code.js"></script>
   </body>
 </html>

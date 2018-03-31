@@ -1,7 +1,9 @@
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 Vue.component('mr-footer', {
     template: `<div>
-                <p>You can find me on <a href="" target="_blank" rel="noopener">Twitter</a></p>
+                <p>This product is meant for educational purposes only. Any resemblance to real persons, living or dead is purely coincidental. Void where prohibited. Some assembly required. List each check separately by bank number. Batteries not included.
+                Contents may settle during shipment. Use only as directed. No other warranty expressed or implied. Do not use while operating a motor vehicle or heavy equipment. Postage will be paid by addressee. Subject to CARB approval.
+                This is not an offer to sell securities. Apply only to affected area. May be too intense for some viewers.</p>
             </div>`
 })
 Vue.component('mr-header', {
@@ -126,22 +128,35 @@ if(document.getElementById('kitchen')){
                 .then(function (response) {
                 self.blogData = response.data.items;
                 self.getPreview();
+                self.getCategories();
                 })
                 .catch(function (error) {
                 console.log(error);
                 });
             },
             getPreview(){
-
                 let el = document.createElement( 'html' );
-                for (let i = 0; i < this.blogData.length; i++) { 
-                   
+                for (let i = 0; i < this.blogData.length; i++) {                    
                     el.innerHTML = this.blogData[i].content;
                     let img = el.getElementsByClassName('preview')[0];
                     if(img != null){
                         this.blogData[i].imgPreview = img.getAttribute('src');
                     }                      
                 }
+            },
+            getCategories(){                         
+                let html = '';
+                for (let i = 0; i < this.blogData.length; i++) {   
+                    let post = this.blogData[i];
+                    post.categories = null;
+                    if(post.labels != null){
+                        for(let j = 0; j < post.labels.length;j++){                                                     
+                            html += '<a href="'+post.labels[j].toLowerCase()+'.html" target="_blank" rel="noopener">'+post.labels[j]+'</a>'                          
+                        }
+                        post.categories = html;
+                    }
+                    html = '';
+                }     
             },
             parseDate(date){                
                 let fecha = new Date(date).toLocaleDateString('es-ES', options);                
@@ -175,21 +190,39 @@ if(document.getElementById('comidas')){
             this.getPosts()
         },
         methods:{
+            checkLabel(label){
+                return 
+            },
             getPosts(){
                 let self = this;
                 axios.get('https://www.googleapis.com/blogger/v3/blogs/4068847985698899770/posts?key=AIzaSyCXEfThpBpeJtVSW208CvRmGBwAyuutbHM')
                 .then(function (response) {
                 self.blogData = response.data.items;
                 for(let x = 0; x < self.blogData.length;x++){                
-                    if(self.blogData[x].labels != null && self.blogData[x].labels.indexOf("Comidas") != -1){
+                    if(self.blogData[x].labels != null && self.blogData[x].labels.includes("Comidas")){
                      self.comidas.push(self.blogData[x]);                    
                     }                    
                 }
-                //self.getPreview();
+                self.getPreview();
+                self.getCategories();
                 })
                 .catch(function (error) {
                 console.log(error);
                 });
+            },
+            getCategories(){                         
+                let html = '';
+                for (let i = 0; i < this.blogData.length; i++) {   
+                    let post = this.blogData[i];
+                    post.categories = null;
+                    if(post.labels != null){
+                        for(let j = 0; j < post.labels.length;j++){                                                     
+                            html += '<a href="'+post.labels[j].toLowerCase()+'.html" target="_blank" rel="noopener">'+post.labels[j]+'</a>'                          
+                        }
+                        post.categories = html;
+                    }
+                    html = '';
+                }     
             },
             getPreview(){
                 let el = document.createElement( 'html' );
@@ -240,11 +273,12 @@ if(document.getElementById('bebidas')){
                 .then(function (response) {
                 self.blogData = response.data.items;
                 for(let x = 0; x < self.blogData.length;x++){
-                    if(self.blogData[x].labels != null && self.blogData[x].labels.indexOf("Bebidas")  != -1){
+                    if(self.blogData[x].labels != null && self.blogData[x].labels.includes("Bebidas")){
                      self.bebidas.push(self.blogData[x]);                    
                     }                    
                 }
-                //self.getPreview();
+                self.getPreview();
+                self.getCategories();
                 })
                 .catch(function (error) {
                 console.log(error);
@@ -260,6 +294,20 @@ if(document.getElementById('bebidas')){
                         this.postres[i].imgPreview = img.getAttribute('src');
                     }                      
                 }
+            },
+            getCategories(){                         
+                let html = '';
+                for (let i = 0; i < this.blogData.length; i++) {   
+                    let post = this.blogData[i];
+                    post.categories = null;
+                    if(post.labels != null){
+                        for(let j = 0; j < post.labels.length;j++){                                                     
+                            html += '<a href="'+post.labels[j].toLowerCase()+'.html" target="_blank" rel="noopener">'+post.labels[j]+'</a>'                          
+                        }
+                        post.categories = html;
+                    }
+                    html = '';
+                }     
             },
             parseDate(date){                
                 let fecha = new Date(date).toLocaleDateString('es-ES', options);                
@@ -299,11 +347,12 @@ if(document.getElementById('postres')){
                 .then(function (response) {
                 self.blogData = response.data.items;
                 for(let x = 0; x < self.blogData.length;x++){
-                    if(self.blogData[x].labels != null && self.blogData[x].labels.indexOf("Postres")  != -1){
+                    if(self.blogData[x].labels != null && self.blogData[x].labels.includes("Postres")){
                      self.postres.push(self.blogData[x]);                    
                     }                    
                 }
-                //self.getPreview();
+                self.getPreview();
+                self.getCategories();
                 })
                 .catch(function (error) {
                 console.log(error);
@@ -319,6 +368,20 @@ if(document.getElementById('postres')){
                         this.postres[i].imgPreview = img.getAttribute('src');
                     }                      
                 }
+            },
+            getCategories(){                         
+                let html = '';
+                for (let i = 0; i < this.blogData.length; i++) {   
+                    let post = this.blogData[i];
+                    post.categories = null;
+                    if(post.labels != null){
+                        for(let j = 0; j < post.labels.length;j++){                                                     
+                            html += '<a href="'+post.labels[j].toLowerCase()+'.html" target="_blank" rel="noopener">'+post.labels[j]+'</a>'                          
+                        }
+                        post.categories = html;
+                    }
+                    html = '';
+                }     
             },
             parseDate(date){                
                 let fecha = new Date(date).toLocaleDateString('es-ES', options);                

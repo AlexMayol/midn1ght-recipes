@@ -29,10 +29,14 @@
       <mr-menu></mr-menu>
     </nav>
     <div id="search-bar">
-        <input placeholder="Buscar en todos los posts" v-model="texto" type="text">
-        <input @click="searchPost()" type="submit" value="Buscar">
-        <p v-if="isFound == false">No hemos encontrado nada con ese texto, vuelve a intentarlo</p>
-    </div>
+        <div class="search-wrap">
+          <input v-on:keyup.enter="searchPost()" placeholder="Buscar en todos los posts" v-model="texto" type="text">
+          <button @click="searchPost()" type="submit" value="Buscar">
+              <i class="fa fa-search"></i>
+          </button>   
+        </div>       
+        <div class="alert" v-if="isFound == false" ><span>No hemos encontrado nada con ese texto, vuelve a intentarlo</span></div>
+      </div>
     <main id="bebidas">
       <button :disabled="viewList.isActive" @click="toggleList()"><i class="fas fa-bars"></i></button>
       <button :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>   
@@ -50,7 +54,7 @@
               <h2>{{post.title}}</h2>
               <p class="fecha">{{parseDate(post.updated)}}</p>            
               <p class="author"><img :src="'http:'+post.author.image.url+'.jpg'" alt="Autor del post"> {{post.author.displayName}}</p>
-              <div class="cat" v-if="post.labels != null">En: <span>{{post.labels}}</span></div><div class="cat" v-else>Sin categoría</span></div>              
+              <div class="cat" v-if="post.categories != null">En: <span v-html="post.categories"></span></div><div class="cat" v-else>Sin categoría</span></div> 
             </a>             
           </div>
         </div>
