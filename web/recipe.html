@@ -7,6 +7,9 @@
     <meta name="description" content="The best recipes you can cook at midnight.">
     <meta name="subject" content="Just a simple exercise for fun">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css">
@@ -14,31 +17,45 @@
     <title>Midn1ght Recipes | Tasty food!</title>
   </head>
   <body>
-    <header>
-      <h1>Midnight</h1>
-      <h2>Recipes</h2>
+    <header id="header">
+      <div class="header home">
+        <h1 class="sr-only">Midnight Recipes</h1>
+        <p aria-hidden="true" class="mst">Midnight</p>
+        <p aria-hidden="true" class="lora">and his</p>
+        <p aria-hidden="true" class="mst">Recipes</p>
+      </div>
+      <!--<mr-header></mr-header>-->
     </header>
     <nav id="menu">      
-        <mr-menu></mr-menu>
-      </nav>
-      <div id="search-bar">
-          <div class="search-wrap">
-            <input v-on:keyup.enter="searchPost()" placeholder="Buscar en todos los posts" v-model="texto" type="text">
-            <button @click="searchPost()" type="submit" value="Buscar">
-                <i class="fa fa-search"></i>
-            </button>   
-          </div>       
-          <div class="alert" v-if="isFound == false" ><span>No hemos encontrado nada con ese texto, vuelve a intentarlo</span></div>
+      <mr-menu></mr-menu>
+    </nav>
+    <div id="search-bar">
+      <div class="search-wrap">
+        <input v-on:keyup.enter="searchPost()" placeholder="Buscar en todos los posts" v-model="texto" type="text">
+        <button @click="searchPost()" type="submit" value="Buscar">
+            <i class="fa fa-search"></i>
+        </button>   
+      </div>       
+      <div class="alert" v-if="isFound == false" ><span>No hemos encontrado nada con ese texto, vuelve a intentarlo</span></div>
+    </div>
+    <main id="recipe">
+      <div v-if="recipeData == null" class="spinner">
+        <div class="half-circle-spinner">
+          <div class="circle circle-1"></div>
+          <div class="circle circle-2"></div>
         </div>
-    <main id="recipe">      
-      hola, {{message}}
-      <div>
-        <div v-html="recipeData.content" v-once></div>
+     </div>  
+      <div v-else class="recipe">   
+        <p class="author"><img :src="'http:'+recipeData.author.image.url+'.jpg'" alt="Autor del post"> {{recipeData.author.displayName}}</p>        
+        <p class="fecha">{{parseDate(recipeData.updated)}}</p>
+        <h2>{{recipeData.title}}</h2>
+        <div class="recipe-content" v-html="recipeData.content"></div>    
+        <div class="cat" v-if="recipeData.categories != null">En: <span v-html="recipeData.categories"></span></div><div class="cat" v-else>Sin categoría</span></div> 
       </div>
     </main>
     <footer id="footer">      
-        <mr-footer></mr-footer>
-      </footer>
+      <mr-footer></mr-footer>
+    </footer>
     <script src="code.js"></script>
   </body>
 </html>

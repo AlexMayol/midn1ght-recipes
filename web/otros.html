@@ -14,15 +14,14 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css">
     <noscript><!--no JS alternative--></noscript>
-    <title>Midn1ght Recipes | Tasty food!</title>
+    <title>Postres | Midn1ght Recipes</title>
   </head>
   <body>
     <header id="header">
-      <div class="header home">
-        <h1 class="sr-only">Midnight Recipes</h1>
-        <p aria-hidden="true" class="mst">Midnight</p>
-        <p aria-hidden="true" class="lora">and his</p>
-        <p aria-hidden="true" class="mst">Recipes</p>
+      <div class="header otros">
+        <h1 class="sr-only">Postres</h1>
+        <p aria-hidden="true" class="mst">Otros</p>
+        <p aria-hidden="true" class="lora">descubrimientos</p>
       </div>
       <!--<mr-header></mr-header>-->
     </header>
@@ -30,15 +29,15 @@
       <mr-menu></mr-menu>
     </nav>
     <div id="search-bar">
-      <div class="search-wrap">
-        <input v-on:keyup.enter="searchPost()" placeholder="Buscar en todos los posts" v-model="texto" type="text">
-        <button @click="searchPost()" type="submit" value="Buscar">
-            <i class="fa fa-search"></i>
-        </button>   
-      </div>       
-      <div class="alert" v-if="isFound == false" ><span>No hemos encontrado nada con ese texto, vuelve a intentarlo</span></div>
-    </div>
-    <main id="kitchen">
+        <div class="search-wrap">
+          <input v-on:keyup.enter="searchPost()" placeholder="Buscar en todos los posts" v-model="texto" type="text">
+          <button @click="searchPost()" type="submit" value="Buscar">
+              <i class="fa fa-search"></i>
+          </button>   
+        </div>       
+        <div class="alert" v-if="isFound == false" ><span>No hemos encontrado nada con ese texto, vuelve a intentarlo</span></div>
+      </div>
+    <main id="otros">
       <div class="buttons">
         <button class="btn-gal" title="Ver como lista" :disabled="viewList.isActive" @click="toggleList()"><i class="fas fa-bars"></i></button>
         <button class="btn-gal" title="Ver como cuadrícula" :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>   
@@ -50,16 +49,14 @@
         </div>
      </div>  
       <div v-else class="gal" :class="{ 'list': viewList.isActive, 'grid':   viewGrid.isActive }">       
-        <div v-for="post in blogData" v-once>
+        <div v-for="post in otros" v-once>
           <div class="post">
             <a :href=" 'recipe.html?post='+post.id" target="_blank" rel="noopener">                     
-              <div class="list-img" v-if="post.imgPreview != null"><img class="img" :src="post.imgPreview" alt=""></div>
-              <div class="list-content">
-                <h2>{{post.title}}</h2>
-                <p class="fecha">{{parseDate(post.updated)}}</p>            
-                <p class="author"><img :src="'http:'+post.author.image.url" alt="Autor del post"> {{post.author.displayName}}</p>              
-                <div class="cat" v-if="post.categories != null">En: <span v-html="post.categories"></span></div><div class="cat" v-else>Sin categoría</span></div>              
-            </div>
+              <div v-if="post.imgPreview != null"><img class="img" :src="post.imgPreview" alt=""></div>
+              <h2>{{post.title}}</h2>
+              <p class="fecha">{{parseDate(post.updated)}}</p>            
+              <p class="author"><img :src="'http:'+post.author.image.url+'.jpg'" alt="Autor del post"> {{post.author.displayName}}</p>
+              <div class="cat" v-if="post.categories != null">En: <span v-html="post.categories"></span></div><div class="cat" v-else>Sin categoría</span></div> 
             </a>             
           </div>
         </div>

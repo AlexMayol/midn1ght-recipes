@@ -1,9 +1,7 @@
 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 Vue.component('mr-footer', {
-    template: `<div>
-                <p>This product is meant for educational purposes only. Any resemblance to real persons, living or dead is purely coincidental. Void where prohibited. Some assembly required. List each check separately by bank number. Batteries not included.
-                Contents may settle during shipment. Use only as directed. No other warranty expressed or implied. Do not use while operating a motor vehicle or heavy equipment. Postage will be paid by addressee. Subject to CARB approval.
-                This is not an offer to sell securities. Apply only to affected area. May be too intense for some viewers.</p>
+    template: `<div class="footer">
+                <p><a rel="noopener" target="_blank" href="https://github.com/AlexMayol/midn1ght-recipes"><i class="fab fa-github"></i></a></p>
             </div>`
 })
 Vue.component('mr-header', {
@@ -11,11 +9,11 @@ Vue.component('mr-header', {
 })
 Vue.component('mr-menu', {
     template: `<ul>
-                <li><a href="index.html" target="_blank" rel="noopener">Inicio</a></li>
-                <li><a href="comidas.html" target="_blank" rel="noopener">Comidas</a></li>
-                <li><a href="bebidas.html" target="_blank" rel="noopener">Bebidas</a></li>
-                <li><a href="postres.html" target="_blank" rel="noopener">Postres</a></li>
-                <li><a href="about.html" target="_blank" rel="noopener">Contacto</a></li>
+                <li><a href="index.html" rel="noopener">Inicio</a></li>
+                <li><a href="comidas.html" rel="noopener">Comidas</a></li>
+                <li><a href="bebidas.html" rel="noopener">Bebidas</a></li>
+                <li><a href="postres.html" rel="noopener">Postres</a></li>
+                <li><a href="otros.html" rel="noopener">Otros</a></li>
                 </ul>`
 })
 if(document.getElementById('footer')){new Vue({ el: '#footer' })}
@@ -231,7 +229,7 @@ if(document.getElementById('comidas')){
                     el.innerHTML = this.comidas[i].content;
                     let img = el.getElementsByClassName('preview')[0];
                     if(img != null){
-                        this.postres[i].imgPreview = img.getAttribute('src');
+                        this.comidas[i].imgPreview = img.getAttribute('src');
                     }                      
                 }
             },
@@ -287,11 +285,12 @@ if(document.getElementById('bebidas')){
             getPreview(){
                 let el = document.createElement( 'html' );
                 for (let i = 0; i < this.bebidas.length; i++) { 
-                   
+                   console.log(this.bebidas[i].content);
                     el.innerHTML = this.bebidas[i].content;
                     let img = el.getElementsByClassName('preview')[0];
+                    console.log(img);
                     if(img != null){
-                        this.postres[i].imgPreview = img.getAttribute('src');
+                        this.bebidas[i].imgPreview = img.getAttribute('src');
                     }                      
                 }
             },
@@ -398,6 +397,80 @@ if(document.getElementById('postres')){
         }
     })
 }
+if(document.getElementById('otros')){
+    new Vue({
+        el:'#otros',
+        data:{   
+            blogData:null,
+            otros:[],
+            viewList:{
+                isActive:false
+            },
+            viewGrid:{
+                isActive:true
+            }
+        },
+        mounted(){
+            this.getPosts()
+        },
+        methods:{
+            getPosts(){
+                var self = this;
+                axios.get('https://www.googleapis.com/blogger/v3/blogs/4068847985698899770/posts?key=AIzaSyCXEfThpBpeJtVSW208CvRmGBwAyuutbHM')
+                .then(function (response) {
+                self.blogData = response.data.items;
+                for(let x = 0; x < self.blogData.length;x++){
+                    if(self.blogData[x].labels != null && self.blogData[x].labels.includes("Otros")){
+                     self.otros.push(self.blogData[x]);                    
+                    }                    
+                }
+                self.getPreview();
+                self.getCategories();
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
+            },
+            getPreview(){
+                let el = document.createElement( 'html' );
+                for (let i = 0; i < this.otros.length; i++) { 
+                   
+                    el.innerHTML = this.otros[i].content;
+                    let img = el.getElementsByClassName('preview')[0];
+                    if(img != null){
+                        this.otros[i].imgPreview = img.getAttribute('src');
+                    }                      
+                }
+            },
+            getCategories(){                         
+                let html = '';
+                for (let i = 0; i < this.blogData.length; i++) {   
+                    let post = this.blogData[i];
+                    post.categories = null;
+                    if(post.labels != null){
+                        for(let j = 0; j < post.labels.length;j++){                                                     
+                            html += '<a href="'+post.labels[j].toLowerCase()+'.html" target="_blank" rel="noopener">'+post.labels[j]+'</a>'                          
+                        }
+                        post.categories = html;
+                    }
+                    html = '';
+                }     
+            },
+            parseDate(date){                
+                let fecha = new Date(date).toLocaleDateString('es-ES', options);                
+                return fecha;
+            },
+            toggleGrid(){
+                this.viewGrid.isActive = !this.viewGrid.isActive;
+                this.viewList.isActive = !this.viewList.isActive;
+            },
+            toggleList(){
+                this.viewList.isActive = !this.viewList.isActive;
+                this.viewGrid.isActive = !this.viewGrid.isActive;
+            }
+        }
+    })
+}
 if(document.getElementById('recipe')){
     new Vue({
         el:'#recipe',
@@ -416,12 +489,28 @@ if(document.getElementById('recipe')){
                 axios.get('https://www.googleapis.com/blogger/v3/blogs/4068847985698899770/posts/'+res+'?key=AIzaSyCXEfThpBpeJtVSW208CvRmGBwAyuutbHM')
                 .then(function (response) {
                 self.recipeData = response.data;
-                console.log(self.recipeData)
+                self.getCategories();
                 })
                 .catch(function (error) {
                 console.log(error);
                 });
-            }
+            },
+            parseDate(date){                
+                let fecha = new Date(date).toLocaleDateString('es-ES', options);                
+                return fecha;
+            },
+            getCategories(){                         
+                let html = '';
+                let post = this.recipeData;
+                post.categories = null;
+                if(post.labels != null){
+                    for(let j = 0; j < post.labels.length;j++){                                                     
+                        html += '<a href="'+post.labels[j].toLowerCase()+'.html" target="_blank" rel="noopener">'+post.labels[j]+'</a>'                          
+                    }
+                    post.categories = html;
+                }
+                html = '';   
+            },
         }
 
     })

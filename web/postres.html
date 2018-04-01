@@ -38,9 +38,10 @@
         <div class="alert" v-if="isFound == false" ><span>No hemos encontrado nada con ese texto, vuelve a intentarlo</span></div>
       </div>
     <main id="postres">
-      <button :disabled="viewList.isActive" @click="toggleList()"><i class="fas fa-bars"></i></button>
-      <button :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>   
-
+      <div class="buttons">
+        <button class="btn-gal" title="Ver como lista" :disabled="viewList.isActive" @click="toggleList()"><i class="fas fa-bars"></i></button>
+        <button class="btn-gal" title="Ver como cuadrícula" :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>   
+      </div>
       <div v-if="blogData == null" class="spinner">
         <div class="half-circle-spinner">
           <div class="circle circle-1"></div>
