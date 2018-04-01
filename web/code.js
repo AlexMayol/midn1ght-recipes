@@ -35,7 +35,6 @@ if(document.getElementById('search-bar')){
                     axios.get('https://www.googleapis.com/blogger/v3/blogs/4068847985698899770/posts/search?q='+query+'&key=AIzaSyCXEfThpBpeJtVSW208CvRmGBwAyuutbHM')
                     .then(function (response) {                        
                         if(response.data.items != null){
-                            console.log(response.data);
                             window.location.href = "results.html?query="+query;
                         }else{
                             self.isFound = false;
@@ -79,19 +78,19 @@ if(document.getElementById('results')){
                 });
             },
             getPreview(){
-
                 let el = document.createElement( 'html' );
-                for (let i = 0; i < this.blogData.length; i++) { 
+                for (let i = 0; i < this.queryResult.length; i++) { 
                    
-                    el.innerHTML = this.blogData[i].content;
+                    el.innerHTML = this.queryResult[i].content;
                     let img = el.getElementsByClassName('preview')[0];
                     if(img != null){
-                        this.blogData[i].imgPreview = img.getAttribute('src');
+                        this.queryResult[i].imgPreview = img.getAttribute('src');
                     }                         
-                }
-                console.log(this.blogData)  
-               
-                
+                }                            
+            },
+            parseDate(date){                
+                let fecha = new Date(date).toLocaleDateString('es-ES', options);                
+                return fecha;
             },
             toggleGrid(){
                 this.viewGrid.isActive = !this.viewGrid.isActive;
@@ -285,10 +284,8 @@ if(document.getElementById('bebidas')){
             getPreview(){
                 let el = document.createElement( 'html' );
                 for (let i = 0; i < this.bebidas.length; i++) { 
-                   console.log(this.bebidas[i].content);
                     el.innerHTML = this.bebidas[i].content;
                     let img = el.getElementsByClassName('preview')[0];
-                    console.log(img);
                     if(img != null){
                         this.bebidas[i].imgPreview = img.getAttribute('src');
                     }                      

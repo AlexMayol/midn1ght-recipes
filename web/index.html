@@ -9,6 +9,11 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Lora:400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
+    integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw"
+    crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -43,6 +48,7 @@
         <button class="btn-gal" title="Ver como lista" :disabled="viewList.isActive" @click="toggleList()"><i class="fas fa-bars"></i></button>
         <button class="btn-gal" title="Ver como cuadrícula" :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>   
       </div>
+      <transition name="fade" mode="out-in">
       <div v-if="blogData == null" class="spinner">
         <div class="half-circle-spinner">
           <div class="circle circle-1"></div>
@@ -64,6 +70,7 @@
           </div>
         </div>
       </div>
+    </transition>
     </main>
     <footer id="footer">      
       <mr-footer></mr-footer>
