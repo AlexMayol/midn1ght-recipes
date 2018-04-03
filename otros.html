@@ -9,25 +9,19 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Lora:400italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"
-    integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw"
-    crossorigin="anonymous">
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css">
     <noscript><!--no JS alternative--></noscript>
-    <title>Midn1ght Recipes | Tasty food!</title>
+    <title>Postres | Midn1ght Recipes</title>
   </head>
   <body>
     <header id="header">
-      <div class="header home">
-        <h1 class="sr-only">Midnight Recipes</h1>
-        <p aria-hidden="true" class="mst">Midnight</p>
-        <p aria-hidden="true" class="lora">and his</p>
-        <p aria-hidden="true" class="mst">Recipes</p>
+      <div class="header otros">
+        <h1 class="sr-only">Postres</h1>
+        <p aria-hidden="true" class="mst">Otros</p>
+        <p aria-hidden="true" class="lora">sabores</p>
       </div>
       <!--<mr-header></mr-header>-->
     </header>
@@ -35,31 +29,33 @@
       <mr-menu></mr-menu>
     </nav>
     <div id="search-bar">
-      <div class="search-wrap">
-        <input v-on:keyup.enter="searchPost()" placeholder="Buscar en todos los posts" v-model="texto" type="text">
-        <button @click="searchPost()" type="submit" value="Buscar">
-            <i class="fa fa-search"></i>
-        </button>   
-      </div>       
-      <div class="alert" v-if="isFound == false" ><span>No hemos encontrado nada con ese texto, vuelve a intentarlo</span></div>
-    </div>
-    <main id="kitchen">
+        <div class="search-wrap">
+          <input v-on:keyup.enter="searchPost()" placeholder="Buscar en todos los posts" v-model="texto" type="text">
+          <button @click="searchPost()" type="submit" value="Buscar">
+              <i class="fa fa-search"></i>
+          </button>   
+        </div>       
+        <div class="alert" v-if="isFound == false" ><span>No hemos encontrado nada con ese texto, vuelve a intentarlo</span></div>
+      </div>
+    <main id="otros">
       <div class="buttons">
         <button class="btn-gal" title="Ver como lista" :disabled="viewList.isActive" @click="toggleList()"><i class="fas fa-bars"></i></button>
         <button class="btn-gal" title="Ver como cuadrícula" :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>   
       </div>
-      <transition name="fade" mode="out-in">
       <div v-if="blogData == null" class="spinner">
         <div class="half-circle-spinner">
           <div class="circle circle-1"></div>
           <div class="circle circle-2"></div>
         </div>
      </div>  
+     <div v-else-if="otros.length == 0" class="center">
+      No hay nada aquí... todavía ;)
+    </div>
       <div v-else class="gal" :class="{ 'list': viewList.isActive, 'grid':   viewGrid.isActive }">       
-        <div v-for="post in blogData" v-once>
+        <div v-for="post in otros" :style="{ '--anim-delay':  Math.random() +'s'}" v-once>
           <div class="post">
             <a :href=" 'recipe.html?post='+post.id" target="_blank" rel="noopener">                     
-              <div class="list-img" v-if="post.imgPreview != null"><img class="img" :src="post.imgPreview" alt=""></div>
+              <div class="list-img" ><img v-if="post.imgPreview != null" class="img" :src="post.imgPreview" alt=""><img v-else class="img" src="https://earlyfood.com/cartpage/food/food.png" alt=""></div>            
               <div class="list-content">
                 <h2>{{post.title}}</h2>
                 <p class="fecha">{{parseDate(post.updated)}}</p>            
@@ -70,7 +66,6 @@
           </div>
         </div>
       </div>
-    </transition>
     </main>
     <footer id="footer">      
       <mr-footer></mr-footer>

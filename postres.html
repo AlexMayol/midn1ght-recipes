@@ -18,10 +18,10 @@
   </head>
   <body>
     <header id="header">
-      <div class="header otros">
+      <div class="header postres">
         <h1 class="sr-only">Postres</h1>
-        <p aria-hidden="true" class="mst">Otros</p>
-        <p aria-hidden="true" class="lora">descubrimientos</p>
+        <p aria-hidden="true" class="mst">Postres</p>
+        <p aria-hidden="true" class="lora">maravillosos</p>
       </div>
       <!--<mr-header></mr-header>-->
     </header>
@@ -37,26 +37,31 @@
         </div>       
         <div class="alert" v-if="isFound == false" ><span>No hemos encontrado nada con ese texto, vuelve a intentarlo</span></div>
       </div>
-    <main id="otros">
+    <main id="postres">
       <div class="buttons">
         <button class="btn-gal" title="Ver como lista" :disabled="viewList.isActive" @click="toggleList()"><i class="fas fa-bars"></i></button>
         <button class="btn-gal" title="Ver como cuadrícula" :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>   
-      </div>
+      </div>   
       <div v-if="blogData == null" class="spinner">
         <div class="half-circle-spinner">
           <div class="circle circle-1"></div>
           <div class="circle circle-2"></div>
         </div>
      </div>  
+     <div v-else-if="postres.length == 0" class="center">
+        No hay nada aquí... todavía ;)
+     </div>
       <div v-else class="gal" :class="{ 'list': viewList.isActive, 'grid':   viewGrid.isActive }">       
-        <div v-for="post in otros" v-once>
+        <div v-for="post in postres" :style="{ '--anim-delay':  Math.random() +'s'}" v-once>
           <div class="post">
             <a :href=" 'recipe.html?post='+post.id" target="_blank" rel="noopener">                     
-              <div v-if="post.imgPreview != null"><img class="img" :src="post.imgPreview" alt=""></div>
-              <h2>{{post.title}}</h2>
-              <p class="fecha">{{parseDate(post.updated)}}</p>            
-              <p class="author"><img :src="'http:'+post.author.image.url+'.jpg'" alt="Autor del post"> {{post.author.displayName}}</p>
-              <div class="cat" v-if="post.categories != null">En: <span v-html="post.categories"></span></div><div class="cat" v-else>Sin categoría</span></div> 
+              <div class="list-img" ><img v-if="post.imgPreview != null" class="img" :src="post.imgPreview" alt=""><img v-else class="img" src="https://earlyfood.com/cartpage/food/food.png" alt=""></div>            
+              <div class="list-content">
+                <h2>{{post.title}}</h2>
+                <p class="fecha">{{parseDate(post.updated)}}</p>            
+                <p class="author"><img :src="'http:'+post.author.image.url" alt="Autor del post"> {{post.author.displayName}}</p>              
+                <div class="cat" v-if="post.categories != null">En: <span v-html="post.categories"></span></div><div class="cat" v-else>Sin categoría</span></div>              
+            </div>
             </a>             
           </div>
         </div>

@@ -9,11 +9,11 @@ Vue.component('mr-header', {
 })
 Vue.component('mr-menu', {
     template: `<ul>
-                <li><a href="index.html" rel="noopener">Inicio</a></li>
-                <li><a href="comidas.html" rel="noopener">Comidas</a></li>
-                <li><a href="bebidas.html" rel="noopener">Bebidas</a></li>
-                <li><a href="postres.html" rel="noopener">Postres</a></li>
-                <li><a href="otros.html" rel="noopener">Otros</a></li>
+                <li style="--anim-delay:.1s"><a href="index.html" rel="noopener">Inicio</a></li>
+                <li style="--anim-delay:.3s"><a href="comidas.html" rel="noopener">Comidas</a></li>
+                <li style="--anim-delay:.5s"><a href="bebidas.html" rel="noopener">Bebidas</a></li>
+                <li style="--anim-delay:.7s"><a href="postres.html" rel="noopener">Postres</a></li>
+                <li style="--anim-delay:.9s"><a href="otros.html" rel="noopener">Otros</a></li>
                 </ul>`
 })
 if(document.getElementById('footer')){new Vue({ el: '#footer' })}
@@ -118,7 +118,7 @@ if(document.getElementById('kitchen')){
         mounted(){
             this.getPosts()
         },
-        methods:{
+        methods:{        
             getPosts(){
                 var self = this;
                 axios.get('https://www.googleapis.com/blogger/v3/blogs/4068847985698899770/posts?key=AIzaSyCXEfThpBpeJtVSW208CvRmGBwAyuutbHM')
@@ -349,6 +349,7 @@ if(document.getElementById('postres')){
                 }
                 self.getPreview();
                 self.getCategories();
+              
                 })
                 .catch(function (error) {
                 console.log(error);

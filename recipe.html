@@ -46,7 +46,7 @@
         </div>
      </div>  
       <div v-else class="recipe">   
-        <p class="author"><img :src="'http:'+recipeData.author.image.url+'.jpg'" alt="Autor del post"> {{recipeData.author.displayName}}</p>        
+        <p class="author"><img :src="'http:'+recipeData.author.image.url" alt="Autor del post"> {{recipeData.author.displayName}}</p>        
         <p class="fecha">{{parseDate(recipeData.updated)}}</p>
         <h2>{{recipeData.title}}</h2>
         <div class="recipe-content" v-html="recipeData.content"></div>    
