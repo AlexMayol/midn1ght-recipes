@@ -1,27 +1,32 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="es">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="The best recipes you can cook at midnight.">
     <meta name="subject" content="Just a simple exercise for fun">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400italic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="prefetch" as="style" onload="this.rel = 'stylesheet'" type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="prefetch" as="style" onload="this.rel = 'stylesheet'" type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lora:400italic' rel="prefetch" as="style" onload="this.rel = 'stylesheet'" type='text/css'>
+    <link href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous" rel="prefetch" as="style" onload="this.rel = 'stylesheet'" type='text/css'>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="style.css" rel="stylesheet" type="text/css">
-    <noscript><!--no JS alternative--></noscript>
-    <title>Postres | Midn1ght Recipes</title>
+    <noscript>
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="style" type='text/css'>
+      <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="style" type='text/css'>
+      <link href='https://fonts.googleapis.com/css?family=Lora:400italic' rel="style" type='text/css'>
+      <link href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous" rel="style" type='text/css'>
+    </noscript>
+    <title>Comidas | Midn1ght Recipes</title>
   </head>
   <body>
     <header id="header">
-      <div class="header otros">
-        <h1 class="sr-only">Postres</h1>
-        <p aria-hidden="true" class="mst">Otros</p>
-        <p aria-hidden="true" class="lora">sabores</p>
+      <div class="header comidas">
+        <h1 class="sr-only">Comidas</h1>
+        <p aria-hidden="true" class="mst">Comidas</p>
+        <p aria-hidden="true" class="lora">deliciosas</p>
       </div>
       <!--<mr-header></mr-header>-->
     </header>
@@ -37,7 +42,7 @@
         </div>       
         <div class="alert" v-if="isFound == false" ><span>No hemos encontrado nada con ese texto, vuelve a intentarlo</span></div>
       </div>
-    <main id="otros">
+    <main id="comidas" v-cloak>
       <div class="buttons">
         <button class="btn-gal" title="Ver como lista" :disabled="viewList.isActive" @click="toggleList()"><i class="fas fa-bars"></i></button>
         <button class="btn-gal" title="Ver como cuadrícula" :disabled="viewGrid.isActive" @click="toggleGrid()"><i class="fas fa-th"></i></button>   
@@ -48,19 +53,19 @@
           <div class="circle circle-2"></div>
         </div>
      </div>  
-     <div v-else-if="otros.length == 0" class="center">
-      No hay nada aquí... todavía ;)
-    </div>
+      <div v-else-if="comidas.length == 0" class="center">
+        No hay nada aquí... todavía ;)
+      </div>
       <div v-else class="gal" :class="{ 'list': viewList.isActive, 'grid':   viewGrid.isActive }">       
-        <div v-for="post in otros" :style="{ '--anim-delay':  Math.random() +'s'}" v-once>
+        <div v-for="post in comidas" :style="{ '--anim-delay':  Math.random() +'s'}" v-once>
           <div class="post">
             <a :href=" 'recipe.html?post='+post.id" target="_blank" rel="noopener">                     
               <div class="list-img" ><img v-if="post.imgPreview != null" class="img" :src="post.imgPreview" alt=""><img v-else class="img" src="https://earlyfood.com/cartpage/food/food.png" alt=""></div>            
               <div class="list-content">
                 <h2>{{post.title}}</h2>
                 <p class="fecha">{{parseDate(post.updated)}}</p>            
-                <p class="author"><img :src="'http:'+post.author.image.url" alt="Autor del post"> {{post.author.displayName}}</p>              
-                <div class="cat" v-if="post.categories != null">En: <span v-html="post.categories"></span></div><div class="cat" v-else>Sin categoría</span></div>              
+                <p class="author"><img :src="'http:'+post.author.image.url" alt="Autor del post"> {{post.author.displayName}}</p>
+                <div class="cat" v-if="post.categories != null">En: <span v-html="post.categories"></span></div><div class="cat" v-else>Sin categoría</span></div> 
             </div>
             </a>             
           </div>
