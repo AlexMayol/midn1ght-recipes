@@ -7,9 +7,44 @@
   --categoria-bg: #e4e3e3;
   --categoria-color: black;
   --footer-bg: black;
-  --footer: white;
+  --footer-color: white;
 }
-
+.aquamarina {
+  --bg-color: #e94f37;
+  --menu-bg: #f6f7eb;
+  --menu-color: black;
+  --loader-color: #393e41;
+  --search-bg: #44bba4;
+  --categoria-bg: #3f88c5;
+  --categoria-color: black;
+  --footer-bg: #f6f7eb;
+  --footer-color: black;
+}
+.joy {
+  --bg-color: #2d3047;
+  --menu-bg: #fffd82;
+  --menu-color: black;
+  --loader-color: #ff9b71;
+  --search-bg: #ed217c;
+  --categoria-bg: #ed217c;
+  --categoria-color: white;
+  --footer-bg: #2d3047;
+  --footer-color: white;
+}
+.fortune {
+  --bg-color: #93b5c6;
+  --menu-bg: #f0cf65;
+  --menu-color: black;
+  --loader-color: #ff9b71;
+  --search-bg: #d7816a;
+  --categoria-bg: #ddedaa;
+  --categoria-color: black;
+  --footer-bg: #bd4f6c;
+  --footer-color: white;
+}
+* {
+  transition: all 0.3s ease-in;
+}
 html {
   height: 100%;
   width: 100%;
@@ -102,14 +137,14 @@ body {
   border-radius: 4px;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
-  border: 2px solid #800131;
+  border: 2px solid var(--search-bg);
   max-width: 50%;
 }
 .search-wrap button {
   border: 0;
   border-bottom-right-radius: 4px;
   border-top-right-radius: 4px;
-  background-color: #800131;
+  background-color: var(--search-bg);
   color: white;
 }
 .alert {
@@ -144,7 +179,7 @@ body {
   padding: 1.5rem;
   display: flex;
   justify-content: space-around;
-  background-color: #800031;
+  background-color: var(--menu-bg);
 }
 @media (max-width: 34rem) {
   #menu ul {
@@ -162,7 +197,7 @@ body {
   animation-fill-mode: forwards;
 }
 #menu ul li a {
-  color: white;
+  color: var(--menu-color);
 }
 #menu ul li {
   transition: transform 350ms cubic-bezier(0, 0.79, 0.62, 0.9);
@@ -352,15 +387,16 @@ a:not([rel="noopener"]) {
   border-bottom-right-radius: 6px;
   margin: 0.1rem;
   padding: 0.3rem;
-  background-color: #e4e3e3;
+  background-color: var(--categoria-bg);
+  color: var(--categoria-color);
 }
 .cat a:not(:last-of-type):after {
   content: ", ";
 }
 
 footer {
-  background-color: #18010b;
-  color: white;
+  background-color: var(--footer-bg);
+  color: var(--footer-color);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
   padding: 0.5rem 2rem;
@@ -370,7 +406,7 @@ footer {
   text-align: center;
 }
 .footer a {
-  color: white;
+  color: var(--footer-color);
 }
 
 /*----Epic loader---*/

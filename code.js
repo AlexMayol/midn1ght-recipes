@@ -27,7 +27,7 @@ Vue.component("theme-picker", {
   data: function() {
     return {
       selected: "",
-      themes: [{ name: "aquamarina" }]
+      themes: [{ name: "aquamarina" }, { name: "joy" }, { name: "fortune" }]
     };
   },
   watch: {
