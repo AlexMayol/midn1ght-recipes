@@ -27,26 +27,30 @@ Vue.component("theme-picker", {
   data: function() {
     return {
       selected: "",
-      themes: [{ name: "aquamarina" }, { name: "joy" }, { name: "fortune" }]
+      themes: [{ name: "default" },{ name: "aquamarina" }, { name: "joy" }, { name: "fortune" }, { name: "summer" }, { name: "soft" }, { name: "veggie" }, { name: "alto-contraste" }]
     };
+  },
+  mounted(){
+    if (localStorage.getItem("theme") != null) {
+      this.selected = localStorage.getItem("theme");
+    }
   },
   watch: {
     selected: function() {
       const el = document.documentElement;
       el.classList.value = "";
       el.classList.add(this.selected);
+      
+      localStorage.setItem("theme", this.selected);
+      console.log(`almaceno ${this.selected}`);
     }
   },
-  methods: {
-    changeTheme() {
-      const el = document.documentElement;
-      el.classList.value = "";
-      el.classList.add(this.selected);
-    }
-  },
-  template: `<select v-model="selected">
-                    <option v-for="theme in themes" :value="theme.name">{{theme.name}}</option>
-                </select>`
+  template: `
+  <label class="theme-picker">Selecciona un tema
+  <select v-model="selected">
+                    <option disabled>-Selecciona un tema-</option>
+                    <option v-for="theme in themes" :value="theme.name">{{theme.name.charAt(0).toUpperCase() + theme.name.slice(1).replace('-',' ')}}</option>
+                </select></label>`
 });
 
 if (document.getElementById("footer")) {
